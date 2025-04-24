@@ -1,0 +1,4 @@
+# /admin/.htaccess
+AuthType Basic
+AuthName "Restricted Access"
+Require valid-user
