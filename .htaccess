@@ -1,0 +1,64 @@
+<IfModule mod_rewrite.c>
+
+    # === ENABLE REWRITE ENGINE ===
+    RewriteEngine On
+
+    # === PROJECT ROOT HANDLING ===
+        # DEVELOPMENT
+        RewriteBase /**PATH**/
+        RewriteRule ^home/?$ /**PATH**/ [R=301,L]
+
+        # LIVE
+        # RewriteBase /
+        # RewriteRule ^home/?$ / [R=301,L]
+
+    # === HTTPS REDIRECT (STAGING & PRODUCTION ONLY) ===
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|192\.168) [NC]
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # === REMOVE TRAILING SLASH FROM NON-FOLDERS ===
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+    # Redirect index.php in URL to clean path
+    RewriteCond %{THE_REQUEST} /index\.php [NC]
+    RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
+
+    # === CUSTOM ROUTES (uncomment as needed per project) ===
+    # RewriteRule ^(project|trip)-([a-zA-Z0-9-]+)/?$ index.php?p=$1&$1=$2 [L,QSA]
+    # RewriteRule ^(contact|about|etc)/?$ index.php?p=$1 [L,QSA]
+
+    # === CATCH-ALL FOR EVERYTHING ELSE ===
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?p=$1 [L,QSA]
+
+    # === STAGING REDIRECT ===
+    RewriteCond %{HTTP_HOST} ^www\.**PATH**\**TLD**$ [NC]
+    RewriteCond %{REQUEST_URI} ^/staging/**PATH** [NC]
+    RewriteRule ^(.*)$ https://staging.**PATH****TLD**/$1 [L,R=301]
+
+    # === PRODUCTION REDIRECT ===
+    RewriteCond %{HTTP_HOST} ^**PATH**\**TLD**$ [NC]
+    RewriteCond %{REQUEST_URI} ^/production/**PATH** [NC]
+    RewriteRule ^(.*)$ https://www.**PATH****TLD**/$1 [L,R=301]
+
+</IfModule>
+
+<IfModule mod_deflate.c>
+
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml
+    AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+    AddOutputFilterByType DEFLATE font/ttf font/otf application/font-woff2
+
+    # Remove browser bugs (only needed for really old browsers)
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
+
+</IfModule>

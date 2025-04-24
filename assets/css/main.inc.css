@@ -1,0 +1,227 @@
+@import url("header.inc.css");
+@import url("footer.inc.css");
+
+/*
+This stylesheet handles default styling for all pages.
+It is included by the page specific css file (ex. home.css).
+
+
+**************************************
+** Project Specific Font and Colors **
+*/
+
+html {
+    --headingFont: 'Cormorant Garamond', serif;
+    --bodyFont: 'Roboto', sans-serif;
+    --color1: #130c05;
+    --color2: #22517f;
+    --color3: #fff;
+    --color4: #2a1b0c;
+    --color5: #e9e1d8;
+    --color6: #b9a48d;  /* For light brown button hover */
+    --color7: #3278bd; /* For blue button hover */
+    --padding: 19px;
+    --border: solid 1px var(--color1);
+    --borderRadius: 9.5px;
+    --borderRadiusNav: 9.5px 9.5px 0 0;
+    --transition: all 250ms linear;
+}
+
+/*
+*********************
+** CSS Boilerplate **
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: var(--bodyFont);
+    background-color: var(--bodyColor);
+    color: var(--mainTextColor);
+}
+
+input[type="submit"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+a {
+    color: var(--mainTextColor);
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+
+.icon img {
+    width: 100%;
+    height: auto;
+}
+
+.bullet-list {
+    margin-top: 19px;
+    margin-bottom: 19px;
+}
+
+.contact li, .bullet-list li {
+    display: flex;
+    align-items: center;
+}
+
+.contact li + li, .bullet-list li + li {
+    margin-top: 19px;
+}
+
+.contact img, .bullet-list img {
+    height: 24px;
+    width: 24px;
+    margin-right: 7px;
+}
+
+#captcha {
+    display: none;
+}
+
+.break {
+    word-break: break-all;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/*
+** End CSS Boilerplate **
+*************************
+
+***********************************
+** Begin Project Specific Styles **
+*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--headingFont);
+    line-height: 1.25;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: 233.125%; /* 28pt */
+}
+
+h2 {
+    font-size: 200%; /* 24pt */
+}
+
+h3 {
+    font-size: 183.125%; /* 22pt */
+}
+
+a:hover:not(.cta1), a:focus:not(.cta1) {
+    color: var(--linkHoverColor);
+    transition: color 125ms linear;
+}
+
+.cta1 {
+    display: inline-block;
+    background-color: var(--ctaColor);
+    color: #fff;
+    padding: var(--ctaPadding);
+    border-radius: var(--ctaBorderRadius);
+}
+
+.cta1:hover, .cta1:focus {
+    background-color: var(--ctaHoverColor);
+    transition: background-color 200ms linear;
+}
+
+/*
+** End CSS Boilerplate **
+*************************
+
+***************************
+** Begin Universal Styles **
+*/
+
+/*
+** End Universal Styles **
+**************************
+
+**************************
+** Begin Tablet Styling **
+*/
+
+@media screen and (min-width: 900px) {
+
+    h1 {
+        font-size: 266.25%; /* 32pt */
+    }
+    
+    h2 {
+        font-size: 233.125%; /* 28pt */
+    }
+    
+    h3 {
+        font-size: 183.125%; /* 22pt */
+    }
+   
+} /* End of 900px */
+/*
+** End Tablet Styling **
+************************
+
+***************************
+** Begin Desktop Styling **
+*/
+
+@media screen and (min-width: 1300px) {
+
+    h1 {
+        font-size: 400%; /* 48pt */
+    }
+    
+    h2, #subscribe h2 {
+        font-size: 333.125%; /* 40pt */
+    }
+    
+    h3 {
+        font-size: 316.67%; /* 38pt */
+    }
+
+} /* End of 1300px */
+
+/*
+** End Desktop Styling **
+*************************
+*/
