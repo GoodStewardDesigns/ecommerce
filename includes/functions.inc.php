@@ -421,3 +421,23 @@ function rotate_log_file($log_file_path, $max_size = 1048576, $max_archives = 10
 
 # **** Log Manager **** #
 # ********************* #
+
+# ***************** #
+# **** ROUTING **** #
+
+function parse_path() {
+    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+    //  Remove base path if applicable:
+    $base = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+
+    if ($base && strpos($path, $base) === 0) {
+        $path = substr($path, strlen($base));
+        $path = trim($path, '/');
+    }
+
+    return explode('/', $path);
+}
+
+# **** ROUTING **** #
+# ***************** #

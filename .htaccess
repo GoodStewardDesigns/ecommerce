@@ -5,8 +5,8 @@
 
     # === PROJECT ROOT HANDLING ===
         # DEVELOPMENT
-        RewriteBase /**PATH**/
-        RewriteRule ^home/?$ /**PATH**/ [R=301,L]
+        RewriteBase /development/ecommerce/
+        RewriteRule ^home/?$ /development/ecommerce/ [R=301,L]
 
         # LIVE
         # RewriteBase /
@@ -17,33 +17,10 @@
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # === REMOVE TRAILING SLASH FROM NON-FOLDERS ===
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)/$ /$1 [R=301,L]
-
-    # Redirect index.php in URL to clean path
-    RewriteCond %{THE_REQUEST} /index\.php [NC]
-    RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
-
-    # === CUSTOM ROUTES (uncomment as needed per project) ===
-    # RewriteRule ^(project|trip)-([a-zA-Z0-9-]+)/?$ index.php?p=$1&$1=$2 [L,QSA]
-    # RewriteRule ^(contact|about|etc)/?$ index.php?p=$1 [L,QSA]
-
-    # === CATCH-ALL FOR EVERYTHING ELSE ===
+    # === REMOVE TRAILING SLASH FROM NON-FOLDERS & SEND TO INDEX ===
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?p=$1 [L,QSA]
-
-    # === STAGING REDIRECT ===
-    RewriteCond %{HTTP_HOST} ^www\.**PATH**\**TLD**$ [NC]
-    RewriteCond %{REQUEST_URI} ^/staging/**PATH** [NC]
-    RewriteRule ^(.*)$ https://staging.**PATH****TLD**/$1 [L,R=301]
-
-    # === PRODUCTION REDIRECT ===
-    RewriteCond %{HTTP_HOST} ^**PATH**\**TLD**$ [NC]
-    RewriteCond %{REQUEST_URI} ^/production/**PATH** [NC]
-    RewriteRule ^(.*)$ https://www.**PATH****TLD**/$1 [L,R=301]
-
+    RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
 
 <IfModule mod_deflate.c>
